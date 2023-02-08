@@ -5,6 +5,7 @@
 
 # Local config files
 appsettings.json
+appsettings.Development.json
 
 # User-specific files
 *.rsuser
