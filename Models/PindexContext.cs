@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PindexBackend.Models;
 
 namespace PindexBackend.Models {
@@ -11,8 +11,6 @@ namespace PindexBackend.Models {
         protected override void OnConfiguring(DbContextOptionsBuilder options) {
             options.UseNpgsql(Configuration.GetConnectionString("PindexDb"));
         }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Canorg> Canorgs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
 
@@ -26,11 +24,29 @@ namespace PindexBackend.Models {
                 .WithMany(i => i.Offices)
                 .HasForeignKey(o => o.OfficeId);
 
+            modelBuilder.Entity<Location>()
+                .HasOne(o => o.Item)
+                .WithMany(i => i.Locations)
+                .HasForeignKey(o => o.LocationId);
+
+            modelBuilder.Entity<Item>()
+                .HasMany(o => o.Categorizations)
+                .WithMany(i => i.Items)
+                .UsingEntity(o => o.ToTable("ItemCategorizations"));
+
+            modelBuilder.Entity<Item>()
+                .HasMany(o => o.Issues)
+                .WithMany(i => i.Items)
+                .UsingEntity(o => o.ToTable("ItemIssues"));
+
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<PindexBackend.Models.Office> Office { get; set; } = default!;
-        
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Canorg> Canorgs { get; set; }
+        public DbSet<Office> Office { get; set; }
+        public DbSet<Location> Location { get; set; }
+        public DbSet<Issue> Issue { get; set; }
+        public DbSet<Categorization> Categorization { get; set; }
     }
-
 }
