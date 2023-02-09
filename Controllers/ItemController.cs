@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,55 +11,55 @@ namespace PindexBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CanorgsController : ControllerBase
+    public class ItemController : ControllerBase
     {
         private readonly PindexContext _context;
 
-        public CanorgsController(PindexContext context)
+        public ItemController(PindexContext context)
         {
             _context = context;
         }
 
-        // GET: api/Canorgs
+        // GET: api/Item
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Canorg>>> GetCanorgs()
+        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
         {
-          if (_context.Canorgs == null)
+          if (_context.Items == null)
           {
               return NotFound();
           }
-            return await _context.Canorgs.ToListAsync();
+            return await _context.Items.ToListAsync();
         }
 
-        // GET: api/Canorgs/5
+        // GET: api/Item/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Canorg>> GetCanorg(int id)
+        public async Task<ActionResult<Item>> GetItem(int id)
         {
-          if (_context.Canorgs == null)
+          if (_context.Items == null)
           {
               return NotFound();
           }
-            var canorg = await _context.Canorgs.FindAsync(id);
+            var item = await _context.Items.FindAsync(id);
 
-            if (canorg == null)
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return canorg;
+            return item;
         }
 
-        // PUT: api/Canorgs/5
+        // PUT: api/Item/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCanorg(int id, Canorg canorg)
+        public async Task<IActionResult> PutItem(int id, Item item)
         {
-            if (id != canorg.CanorgId)
+            if (id != item.ItemId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(canorg).State = EntityState.Modified;
+            _context.Entry(item).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace PindexBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CanorgExists(id))
+                if (!ItemExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace PindexBackend.Controllers
             return NoContent();
         }
 
-        // POST: api/Canorgs
+        // POST: api/Item
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Canorg>> PostCanorg(Canorg canorg)
+        public async Task<ActionResult<Item>> PostItem(Item item)
         {
-          if (_context.Canorgs == null)
+          if (_context.Items == null)
           {
-              return Problem("Entity set 'PindexContext.Canorgs'  is null.");
+              return Problem("Entity set 'PindexContext.Items'  is null.");
           }
-            _context.Canorgs.Add(canorg);
+            _context.Items.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCanorg", new { id = canorg.CanorgId }, canorg);
+            return CreatedAtAction("GetItem", new { id = item.ItemId }, item);
         }
 
-        // DELETE: api/Canorgs/5
+        // DELETE: api/Item/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCanorg(int id)
+        public async Task<IActionResult> DeleteItem(int id)
         {
-            if (_context.Canorgs == null)
+            if (_context.Items == null)
             {
                 return NotFound();
             }
-            var canorg = await _context.Canorgs.FindAsync(id);
-            if (canorg == null)
+            var item = await _context.Items.FindAsync(id);
+            if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Canorgs.Remove(canorg);
+            _context.Items.Remove(item);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CanorgExists(int id)
+        private bool ItemExists(int id)
         {
-            return (_context.Canorgs?.Any(e => e.CanorgId == id)).GetValueOrDefault();
+            return (_context.Items?.Any(e => e.ItemId == id)).GetValueOrDefault();
         }
     }
 }

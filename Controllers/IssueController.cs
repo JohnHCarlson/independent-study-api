@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,55 +11,55 @@ namespace PindexBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemsController : ControllerBase
+    public class IssueController : ControllerBase
     {
         private readonly PindexContext _context;
 
-        public ItemsController(PindexContext context)
+        public IssueController(PindexContext context)
         {
             _context = context;
         }
 
-        // GET: api/Items
+        // GET: api/Issue
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        public async Task<ActionResult<IEnumerable<Issue>>> GetIssue()
         {
-          if (_context.Items == null)
+          if (_context.Issue == null)
           {
               return NotFound();
           }
-            return await _context.Items.ToListAsync();
+            return await _context.Issue.ToListAsync();
         }
 
-        // GET: api/Items/5
+        // GET: api/Issue/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Item>> GetItem(int id)
+        public async Task<ActionResult<Issue>> GetIssue(int id)
         {
-          if (_context.Items == null)
+          if (_context.Issue == null)
           {
               return NotFound();
           }
-            var item = await _context.Items.FindAsync(id);
+            var issue = await _context.Issue.FindAsync(id);
 
-            if (item == null)
+            if (issue == null)
             {
                 return NotFound();
             }
 
-            return item;
+            return issue;
         }
 
-        // PUT: api/Items/5
+        // PUT: api/Issue/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
+        public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
-            if (id != item.ItemId)
+            if (id != issue.IssueId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
+            _context.Entry(issue).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace PindexBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ItemExists(id))
+                if (!IssueExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace PindexBackend.Controllers
             return NoContent();
         }
 
-        // POST: api/Items
+        // POST: api/Issue
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Item>> PostItem(Item item)
+        public async Task<ActionResult<Issue>> PostIssue(Issue issue)
         {
-          if (_context.Items == null)
+          if (_context.Issue == null)
           {
-              return Problem("Entity set 'PindexContext.Items'  is null.");
+              return Problem("Entity set 'PindexContext.Issue'  is null.");
           }
-            _context.Items.Add(item);
+            _context.Issue.Add(issue);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItem", new { id = item.ItemId }, item);
+            return CreatedAtAction("GetIssue", new { id = issue.IssueId }, issue);
         }
 
-        // DELETE: api/Items/5
+        // DELETE: api/Issue/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem(int id)
+        public async Task<IActionResult> DeleteIssue(int id)
         {
-            if (_context.Items == null)
+            if (_context.Issue == null)
             {
                 return NotFound();
             }
-            var item = await _context.Items.FindAsync(id);
-            if (item == null)
+            var issue = await _context.Issue.FindAsync(id);
+            if (issue == null)
             {
                 return NotFound();
             }
 
-            _context.Items.Remove(item);
+            _context.Issue.Remove(issue);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ItemExists(int id)
+        private bool IssueExists(int id)
         {
-            return (_context.Items?.Any(e => e.ItemId == id)).GetValueOrDefault();
+            return (_context.Issue?.Any(e => e.IssueId == id)).GetValueOrDefault();
         }
     }
 }

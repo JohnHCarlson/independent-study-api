@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,55 +11,55 @@ namespace PindexBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OfficesController : ControllerBase
+    public class CanorgController : ControllerBase
     {
         private readonly PindexContext _context;
 
-        public OfficesController(PindexContext context)
+        public CanorgController(PindexContext context)
         {
             _context = context;
         }
 
-        // GET: api/Offices
+        // GET: api/Canorg
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Office>>> GetOffice()
+        public async Task<ActionResult<IEnumerable<Canorg>>> GetCanorgs()
         {
-          if (_context.Office == null)
+          if (_context.Canorgs == null)
           {
               return NotFound();
           }
-            return await _context.Office.ToListAsync();
+            return await _context.Canorgs.ToListAsync();
         }
 
-        // GET: api/Offices/5
+        // GET: api/Canorg/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Office>> GetOffice(int id)
+        public async Task<ActionResult<Canorg>> GetCanorg(int id)
         {
-          if (_context.Office == null)
+          if (_context.Canorgs == null)
           {
               return NotFound();
           }
-            var office = await _context.Office.FindAsync(id);
+            var canorg = await _context.Canorgs.FindAsync(id);
 
-            if (office == null)
+            if (canorg == null)
             {
                 return NotFound();
             }
 
-            return office;
+            return canorg;
         }
 
-        // PUT: api/Offices/5
+        // PUT: api/Canorg/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOffice(int id, Office office)
+        public async Task<IActionResult> PutCanorg(int id, Canorg canorg)
         {
-            if (id != office.OfficeId)
+            if (id != canorg.CanorgId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(office).State = EntityState.Modified;
+            _context.Entry(canorg).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace PindexBackend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OfficeExists(id))
+                if (!CanorgExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace PindexBackend.Controllers
             return NoContent();
         }
 
-        // POST: api/Offices
+        // POST: api/Canorg
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Office>> PostOffice(Office office)
+        public async Task<ActionResult<Canorg>> PostCanorg(Canorg canorg)
         {
-          if (_context.Office == null)
+          if (_context.Canorgs == null)
           {
-              return Problem("Entity set 'PindexContext.Office'  is null.");
+              return Problem("Entity set 'PindexContext.Canorgs'  is null.");
           }
-            _context.Office.Add(office);
+            _context.Canorgs.Add(canorg);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOffice", new { id = office.OfficeId }, office);
+            return CreatedAtAction("GetCanorg", new { id = canorg.CanorgId }, canorg);
         }
 
-        // DELETE: api/Offices/5
+        // DELETE: api/Canorg/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOffice(int id)
+        public async Task<IActionResult> DeleteCanorg(int id)
         {
-            if (_context.Office == null)
+            if (_context.Canorgs == null)
             {
                 return NotFound();
             }
-            var office = await _context.Office.FindAsync(id);
-            if (office == null)
+            var canorg = await _context.Canorgs.FindAsync(id);
+            if (canorg == null)
             {
                 return NotFound();
             }
 
-            _context.Office.Remove(office);
+            _context.Canorgs.Remove(canorg);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool OfficeExists(int id)
+        private bool CanorgExists(int id)
         {
-            return (_context.Office?.Any(e => e.OfficeId == id)).GetValueOrDefault();
+            return (_context.Canorgs?.Any(e => e.CanorgId == id)).GetValueOrDefault();
         }
     }
 }
