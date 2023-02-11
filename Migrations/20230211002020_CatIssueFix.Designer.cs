@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PindexBackend.Models;
@@ -11,9 +12,11 @@ using PindexBackend.Models;
 namespace PindexBackend.Migrations
 {
     [DbContext(typeof(PindexContext))]
-    partial class PindexContextModelSnapshot : ModelSnapshot
+    [Migration("20230211002020_CatIssueFix")]
+    partial class CatIssueFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,7 +142,6 @@ namespace PindexBackend.Migrations
             modelBuilder.Entity("PindexBackend.Models.Location", b =>
                 {
                     b.Property<int>("LocationId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     b.Property<int>("ItemId")
@@ -157,7 +159,6 @@ namespace PindexBackend.Migrations
             modelBuilder.Entity("PindexBackend.Models.Office", b =>
                 {
                     b.Property<int>("OfficeId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     b.Property<int>("ItemId")
