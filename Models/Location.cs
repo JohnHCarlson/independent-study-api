@@ -1,8 +1,11 @@
-﻿namespace PindexBackend.Models {
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PindexBackend.Models {
 
     public class Location {
 
         //PK
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int LocationId { get; set; }
 
         //Per-location data

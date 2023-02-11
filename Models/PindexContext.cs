@@ -14,6 +14,30 @@ namespace PindexBackend.Models {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
 
+            modelBuilder.Entity<Item>()
+                .Property(f => f.ItemId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Canorg>()
+                .Property(f => f.CanorgId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Office>()
+                .Property(f => f.OfficeId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Location>()
+                .Property(f => f.LocationId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Issue>()
+                .Property(f => f.IssueId)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Categorization>()
+                .Property(f => f.CategorizationId)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Canorg>()
                 .HasOne(o => o.Item)
                 .WithMany(i => i.Canorgs)

@@ -1,8 +1,11 @@
-﻿namespace PindexBackend.Models {
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PindexBackend.Models {
 
     public class Item {
 
         //PK
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ItemId { get; set; }
 
         //Per-item data

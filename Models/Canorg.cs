@@ -1,7 +1,11 @@
-﻿namespace PindexBackend.Models {
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace PindexBackend.Models {
     public class Canorg {
 
         //PK
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CanorgId { get; set; }
 
         //Per-canorg data
