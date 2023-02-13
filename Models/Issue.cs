@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PindexBackend.Models {
 
@@ -12,6 +13,7 @@ namespace PindexBackend.Models {
         public required string Name { get; set; }
 
         //Many-to-many data
+        [JsonIgnore]
         public ICollection<Item>? Items { get; set; }
     }
 }
