@@ -7,6 +7,9 @@
 appsettings.json
 appsettings.Development.json
 
+# Local storage
+/wwwroot
+
 # User-specific files
 *.rsuser
 *.suo

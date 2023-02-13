@@ -14,6 +14,9 @@ namespace PindexBackend.Models {
         public bool? Won { get; set; }
         public string? StorageLocation { get; set; }
         public string? Notes { get; set; }
+        
+        //One-to-one data
+        public Image? Image { get; set; }
 
         //One-to-many data
         public ICollection<Canorg>? Canorgs { get; set; }

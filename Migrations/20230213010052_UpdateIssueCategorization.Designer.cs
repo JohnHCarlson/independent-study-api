@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PindexBackend.Models;
@@ -11,9 +12,11 @@ using PindexBackend.Models;
 namespace PindexBackend.Migrations
 {
     [DbContext(typeof(PindexContext))]
-    partial class PindexContextModelSnapshot : ModelSnapshot
+    [Migration("20230213010052_UpdateIssueCategorization")]
+    partial class UpdateIssueCategorization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,7 +12,7 @@ namespace PindexBackend.Models {
         public required string Name { get; set; }
 
         //Many-to-many data
-        public ICollection<Item> Items { get; set; }
+        public ICollection<Item>? Items { get; set; }
     }
 }
 
