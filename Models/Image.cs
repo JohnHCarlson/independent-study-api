@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace PindexBackend.Models {
     public class Image {
@@ -13,6 +14,7 @@ namespace PindexBackend.Models {
         
         //One-to-one data
         public int ItemId { get; set; }
+        [JsonIgnore]
         public Item? Item { get; set; }
     }
 }

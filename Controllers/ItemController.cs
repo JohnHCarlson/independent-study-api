@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PindexBackend.Models;
@@ -22,13 +17,48 @@ namespace PindexBackend.Controllers
 
         // GET: api/Item
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        public async Task<ActionResult<IEnumerable<Item>>> GetItems(
+            [FromQuery] string[] candidates,
+            [FromQuery] string[] offices,
+            [FromQuery] string[] locations,
+            [FromQuery] string[] parties,
+            [FromQuery] string[] issues,
+            [FromQuery] string[] categorizations)
         {
-          if (_context.Items == null)
-          {
-              return NotFound();
-          }
-            return await _context.Items.ToListAsync();
+            var itemsQuery = _context.Items
+                .Include(i => i.Canorgs)
+                .Include(i => i.Offices)
+                .Include(i => i.Locations)
+                .Include(i => i.Parties)
+                .Include(i => i.Issues)
+                .Include(i => i.Categorizations).AsQueryable();
+
+            if (candidates != null && candidates.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Canorgs.Any(co => candidates.Contains(co.Name)));
+            }
+
+            if (offices != null && offices.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Offices.Any(of => offices.Contains(of.Name)));
+            }
+
+            if (locations != null && offices.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Locations.Any(lo => offices.Contains(lo.Name)));
+            }
+
+            if (parties != null && parties.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Parties.Any(pa => parties.Contains(pa.Name)));
+            }
+
+            if (issues != null && issues.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Issues.Any(iu => issues.Contains(iu.Name)));
+            }
+
+            if (categorizations != null && categorizations.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Categorizations.Any(ca => categorizations.Contains(ca.Name)));
+            }
+
+            var items = await itemsQuery.ToListAsync();
+            return Ok(items);
         }
 
         // GET: api/Item/5
