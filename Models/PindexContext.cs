@@ -72,5 +72,6 @@ namespace PindexBackend.Models {
         public DbSet<Location> Location { get; set; }
         public DbSet<Issue> Issue { get; set; }
         public DbSet<Categorization> Categorization { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }
