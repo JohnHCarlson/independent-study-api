@@ -14,6 +14,7 @@ namespace PindexBackend.Models {
         public bool? Won { get; set; }
         public string? StorageLocation { get; set; }
         public string? Notes { get; set; }
+        public string? ElectionType { get; set; } 
         
         //One-to-one data
         public Image? Image { get; set; }
