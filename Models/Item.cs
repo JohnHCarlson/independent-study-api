@@ -22,10 +22,11 @@ namespace PindexBackend.Models {
         public ICollection<Canorg>? Canorgs { get; set; }
         public ICollection<Office>? Offices { get; set; }
         public ICollection<Location>? Locations { get; set; }
+        public ICollection<Party>? Parties { get; set; }
 
         //Many-to-many data
         public ICollection<Categorization>? Categorizations { get; set; }
         public ICollection<Issue>? Issues { get; set; }
-        public ICollection<Party>? Parties { get; set;}
+        
     }
 }
