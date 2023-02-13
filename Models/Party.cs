@@ -10,7 +10,8 @@ namespace PindexBackend.Models {
         //Per-issue data
         public required string Name { get; set; }
 
-        //Many-to-many data
-        public ICollection<Item>? Items { get; set; }
+        //Many-to-one data
+        public int ItemId { get; set; }
+        public Item? Item { get; set; }
     }
 }
