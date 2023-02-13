@@ -26,5 +26,6 @@ namespace PindexBackend.Models {
         //Many-to-many data
         public ICollection<Categorization>? Categorizations { get; set; }
         public ICollection<Issue>? Issues { get; set; }
+        public ICollection<Party>? Parties { get; set;}
     }
 }
