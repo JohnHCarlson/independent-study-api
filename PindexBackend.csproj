@@ -32,7 +32,4 @@
     <None Remove="Controllers\" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
 </Project>
