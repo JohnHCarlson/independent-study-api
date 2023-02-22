@@ -9,7 +9,7 @@ namespace PindexBackend.Models {
         public int ItemId { get; set; }
 
         //Per-item data
-        public DateTime? ElectionDate { get; set; }
+        public string? ElectionYear { get; set; }
         public int Quantity { get; set; }
         public bool? Won { get; set; }
         public string? StorageLocation { get; set; }
