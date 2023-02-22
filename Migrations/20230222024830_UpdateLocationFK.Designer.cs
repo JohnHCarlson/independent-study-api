@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PindexBackend.Models;
@@ -11,9 +12,11 @@ using PindexBackend.Models;
 namespace PindexBackend.Migrations
 {
     [DbContext(typeof(PindexContext))]
-    partial class PindexContextModelSnapshot : ModelSnapshot
+    [Migration("20230222024830_UpdateLocationFK")]
+    partial class UpdateLocationFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +74,7 @@ namespace PindexBackend.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Canorgs", (string)null);
+                    b.ToTable("Canorgs");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Categorization", b =>
@@ -88,7 +91,7 @@ namespace PindexBackend.Migrations
 
                     b.HasKey("CategorizationId");
 
-                    b.ToTable("Categorization", (string)null);
+                    b.ToTable("Categorization");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Image", b =>
@@ -114,7 +117,7 @@ namespace PindexBackend.Migrations
                     b.HasIndex("ItemId")
                         .IsUnique();
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Issue", b =>
@@ -131,7 +134,7 @@ namespace PindexBackend.Migrations
 
                     b.HasKey("IssueId");
 
-                    b.ToTable("Issue", (string)null);
+                    b.ToTable("Issue");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Item", b =>
@@ -162,7 +165,7 @@ namespace PindexBackend.Migrations
 
                     b.HasKey("ItemId");
 
-                    b.ToTable("Items", (string)null);
+                    b.ToTable("Items");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Location", b =>
@@ -184,7 +187,7 @@ namespace PindexBackend.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Location", (string)null);
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Office", b =>
@@ -206,7 +209,7 @@ namespace PindexBackend.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Office", (string)null);
+                    b.ToTable("Office");
                 });
 
             modelBuilder.Entity("PindexBackend.Models.Party", b =>
@@ -228,7 +231,7 @@ namespace PindexBackend.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Parties", (string)null);
+                    b.ToTable("Parties");
                 });
 
             modelBuilder.Entity("CategorizationItem", b =>
