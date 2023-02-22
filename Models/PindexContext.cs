@@ -46,12 +46,17 @@ namespace PindexBackend.Models {
             modelBuilder.Entity<Office>()
                 .HasOne(o => o.Item)
                 .WithMany(i => i.Offices)
-                .HasForeignKey(o => o.OfficeId);
+                .HasForeignKey(o => o.ItemId);
 
             modelBuilder.Entity<Location>()
                 .HasOne(o => o.Item)
                 .WithMany(i => i.Locations)
-                .HasForeignKey(o => o.LocationId);
+                .HasForeignKey(o => o.ItemId);
+
+            modelBuilder.Entity<Party>()
+                .HasOne(o => o.Item)
+                .WithMany(i => i.Parties)
+                .HasForeignKey(o => o.ItemId);
 
             modelBuilder.Entity<Item>()
                 .HasMany(o => o.Categorizations)
@@ -62,6 +67,8 @@ namespace PindexBackend.Models {
                 .HasMany(o => o.Issues)
                 .WithMany(i => i.Items)
                 .UsingEntity(o => o.ToTable("ItemIssues"));
+
+
 
             base.OnModelCreating(modelBuilder);
         }
