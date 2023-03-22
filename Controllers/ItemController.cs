@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PindexBackend.Migrations;
 using PindexBackend.Models;
 
 namespace PindexBackend.Controllers
@@ -41,8 +42,8 @@ namespace PindexBackend.Controllers
                 itemsQuery = itemsQuery.Where(i => i.Offices.Any(of => offices.Contains(of.Name)));
             }
 
-            if (locations != null && offices.Length > 0) {
-                itemsQuery = itemsQuery.Where(i => i.Locations.Any(lo => offices.Contains(lo.Name)));
+            if (locations != null && locations.Length > 0) {
+                itemsQuery = itemsQuery.Where(i => i.Locations.Any(lo => locations.Contains(lo.Name)));
             }
 
             if (parties != null && parties.Length > 0) {
