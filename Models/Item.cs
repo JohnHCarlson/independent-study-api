@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PindexBackend.Models {
 
@@ -14,10 +15,13 @@ namespace PindexBackend.Models {
         public bool? Won { get; set; }
         public string? StorageLocation { get; set; }
         public string? Notes { get; set; }
-        public string? ElectionType { get; set; } 
-        
+        public string? ElectionType { get; set; }
+
         //One-to-one data
-        public Image? Image { get; set; }
+        [NotMapped]
+        public IFormFile? imageFile { get; set; }
+        [BindNever]
+        public string? ImageUrl { get; set; }
 
         //One-to-many data
         public ICollection<Canorg>? Canorgs { get; set; }
