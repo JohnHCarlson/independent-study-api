@@ -77,6 +77,8 @@ namespace PindexBackend.Controllers
                 return NotFound();
             }
 
+
+
             return item;
         }
 
@@ -111,19 +113,38 @@ namespace PindexBackend.Controllers
             return NoContent();
         }
 
-        // POST: api/Item
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
-          if (_context.Items == null)
-          {
-              return Problem("Entity set 'PindexContext.Items'  is null.");
-          }
+
+            if (_context.Items == null)
+            {
+                return Problem("Entity set 'PindexContext.Items'  is null.");
+            }
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetItem", new { id = item.ItemId }, item);
+        }
+
+        [HttpPost("images/{id}")]
+        public async Task<IActionResult> UploadFile([FromForm] IFormFile imageFile, int id) {
+
+            var item = await _context.Items.FindAsync(id);
+
+            if (imageFile != null && imageFile.Length > 0) {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create)) {
+                    await imageFile.CopyToAsync(stream);
+                }
+                item.ImageUrl = filePath;
+            }
+
+            _context.Items.Update(item);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // DELETE: api/Item/5
