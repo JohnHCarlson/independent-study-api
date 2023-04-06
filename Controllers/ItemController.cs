@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PindexBackend.Migrations;
@@ -82,37 +83,6 @@ namespace PindexBackend.Controllers
             return item;
         }
 
-        // PUT: api/Item/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
-        {
-            if (id != item.ItemId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(item).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
@@ -127,10 +97,10 @@ namespace PindexBackend.Controllers
             return CreatedAtAction("GetItem", new { id = item.ItemId }, item);
         }
 
-        [HttpPost("images/{id}")]
-        public async Task<IActionResult> UploadFile([FromForm] IFormFile imageFile, int id) {
+        [HttpPost("images/")]
+        public async Task<IActionResult> UploadFile([FromForm] IFormFile imageFile) {
+            
 
-            var item = await _context.Items.FindAsync(id);
 
             if (imageFile != null && imageFile.Length > 0) {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
@@ -139,32 +109,13 @@ namespace PindexBackend.Controllers
                 using (var stream = new FileStream(filePath, FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
                 }
-                item.ImageUrl = filePath;
+                var response = new ImageUploadResponse {
+                    ImageUrl = filePath,
+                };
+                return new JsonResult(response);
             }
+            return BadRequest("Invalid image file :(");
 
-            _context.Items.Update(item);
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
-
-        // DELETE: api/Item/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem(int id)
-        {
-            if (_context.Items == null)
-            {
-                return NotFound();
-            }
-            var item = await _context.Items.FindAsync(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool ItemExists(int id)
