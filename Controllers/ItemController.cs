@@ -104,7 +104,7 @@ namespace PindexBackend.Controllers
 
             if (imageFile != null && imageFile.Length > 0) {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", fileName);
+                var filePath = Path.Combine(Environment.CurrentDirectory, "wwwroot", "photos", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create)) {
                     await imageFile.CopyToAsync(stream);
